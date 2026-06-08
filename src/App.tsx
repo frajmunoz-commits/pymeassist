@@ -541,19 +541,23 @@ export default function App() {
 
   // Polling simulator updates & log updates every 3 seconds to feel alive and interactive!
   useEffect(() => {
-    const interval = setInterval(() => {
-      // Reload overall state (KPI counts, newest logs)
-      if (selectedEmpresaId) {
-        fetch(`/api/empresas/${selectedEmpresaId}/state`)
-          .then(r => r.json())
-          .then(data => {
-            setCompanyState(data);
-          })
-          .catch(e => console.error(e));
-      }
-    }, 4500);
-    return () => clearInterval(interval);
-  }, [selectedEmpresaId]);
+  const interval = setInterval(() => {
+    if (selectedEmpresaId) {
+      // Guardar posición actual antes del fetch
+      const scrollY = window.scrollY;  // ← AGREGAR
+      
+      fetch(`/api/empresas/${selectedEmpresaId}/state`)
+        .then(r => r.json())
+        .then(data => {
+          setCompanyState(data);
+          // Restaurar posición después del re-render
+          requestAnimationFrame(() => window.scrollTo(0, scrollY));  // ← AGREGAR
+        })
+        .catch(e => console.error(e));
+    }
+  }, 4500);
+  return () => clearInterval(interval);
+}, [selectedEmpresaId]);
 
   // Keep messages in active chat synchronized on change of conversation state
   useEffect(() => {
