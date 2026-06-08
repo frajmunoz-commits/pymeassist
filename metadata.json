@@ -1,0 +1,8 @@
+{
+  "name": "PymeAssist",
+  "description": "Plataforma SaaS con sistema multi-agente IA para automatizar la atención al cliente de WhatsApp en pymes chilenas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
