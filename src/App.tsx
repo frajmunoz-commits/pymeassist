@@ -651,7 +651,11 @@ export default function App() {
               <button
                 key={comp.id}
                 id={`btn-select-emp-${comp.id}`}
-                onClick={() => setSelectedEmpresaId(comp.id)}
+                onClick={() => {
+                  setSelectedEmpresaId(comp.id);
+                  setActiveChatId('');
+                  setMessagesInActiveChat([]);
+                }}
                 className={`px-4 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all ${
                   selectedEmpresaId === comp.id 
                     ? 'bg-white text-emerald-700 shadow-sm' 
